@@ -470,7 +470,6 @@ resource "aws_launch_configuration" "wp_lc" {
 # --- autoscaling group ---
 resource "aws_autoscaling_group" "wp_asg" {
   name                      = "asg-${aws_launch_configuration.wp_lc.id}"
-  launch_configuration      = ""
   max_size                  = "${var.asg_max}"
   min_size                  = "${var.asg_min}"
   health_check_grace_period = "${var.asg_grace}"
