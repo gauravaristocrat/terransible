@@ -495,3 +495,47 @@ resource "aws_autoscaling_group" "wp_asg" {
     create_before_destroy = true
   }
 }
+
+
+# --- Route 53 ---
+# Public Zone
+resource "aws_route53_zone" "public" {
+  name = "${var.route53_zone}"
+  delegation_set_id = "${var.delegation_set}"
+}
+
+# blog
+resource "aws_route53_record" "blog" {
+  name = "blog.${var.route53_zone}"
+  type = "A"
+  zone_id = "${aws_route53_zone.public.zone_id}"
+  alias {
+    name = "${aws_elb.wp_elb.dns_name}"
+    zone_id = "${aws_elb.wp_elb.zone_id}"
+    evaluate_target_health = false
+  }
+}
+# dev
+resource "aws_route53_record" "dev" {
+  name = "dev.blog.${var.route53_zone}"
+  type = "A"
+  zone_id = "${aws_route53_zone.public.zone_id}"
+  ttl = "300"
+  records = ["${aws_instance.wp_dev.public_ip}"]
+}
+
+# Private Zone
+resource "aws_route53_zone" "private" {
+  name = "${var.route53_zone}"
+  vpc_id = "${aws_vpc.wp_vpc.id}"
+}
+
+# db
+resource "aws_route53_record" "db" {
+  name = "db.${var.route53_zone}"
+  type = "CNAME"
+  ttl = "300"
+  zone_id = "${aws_route53_zone.private.zone_id}"
+  records = ["${aws_db_instance.wp_db.address}"]
+}
+
