@@ -1,2 +1,4 @@
 # terransible
-Study files for Linuxacademy course https://github.com/linuxacademy/terransible
+Study files for Linuxacademy course and learning Terraform.
+
+Source: https://github.com/linuxacademy/terransible
