@@ -12,7 +12,7 @@ First of you need to install your tools.
 Then you type in your AWS Access Key and ID and 
 download the provider plugins for Terraform. 
 ###AWS
-```buildoutcfg
+```commandline
 pip install --user --upgrade pip
 pip install --user awscli
 mkdir ~/bin
@@ -23,7 +23,7 @@ aws configure --profile prod
 ###Terraform
 Download the latest release from https://releases.hashicorp.com/terraform/
 
-```buildoutcfg
+```commandline
 unzip terraform_0.11.3_linux_amd64.zip
 mv terraform ~/bin
 cd <GIT REPOSITORY>
@@ -34,12 +34,12 @@ terraform init
 These tools work great with _oh-my-zsh_ Plugins for autocomplete
 
 Then you create your terraform.tfvars with all specific values and secrets.
-```buildoutcfg
+```commandline
 cp terraform.tfvars-example terraform.tfvars
 ```
 
 ##Useful Lines
 Find AMI for your region from Amazon with LTS support:
-```buildoutcfg
+```commandline
 aws ec2 describe-images --owners amazon --filters "Name=description,Values=*LTS*" | jq ".Images[] | {ImageID: .ImageId, Description: .Description}"
 ```
