@@ -7,11 +7,11 @@ Ansible to generate "infrastructure as a Code" for Amazon Web Services.
 
 Source: https://github.com/linuxacademy/terransible
 
-##Getting Started
+## Getting Started
 First of you need to install your tools. 
 Then you type in your AWS Access Key and ID and 
 download the provider plugins for Terraform. 
-###AWS
+### AWS
 ```commandline
 pip install --user --upgrade pip
 pip install --user awscli
@@ -20,7 +20,7 @@ export PATH="~/bin:$PATH"
 ln -s ~/.local/bin/aws* ~/bin
 aws configure --profile prod
 ```
-###Terraform
+### Terraform
 Download the latest release from https://releases.hashicorp.com/terraform/
 
 ```commandline
@@ -38,7 +38,7 @@ Then you create your terraform.tfvars with all specific values and secrets.
 cp terraform.tfvars-example terraform.tfvars
 ```
 
-##Useful Lines
+## Useful Lines
 Find AMI for your region from Amazon with LTS support:
 ```commandline
 aws ec2 describe-images --owners amazon --filters "Name=description,Values=*LTS*" | jq ".Images[] | {ImageID: .ImageId, Description: .Description}"
