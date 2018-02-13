@@ -1,0 +1,17 @@
+---
+- hosts: dev
+  become: yes
+  remote_user: ec2-user
+  tasks:
+    - name: Update S3 code Bucket
+      command: aws s3 sync /var/www/html s3://{{ s3code }}/ --delete
+
+    - name: Define SITEURL
+      shell: echo "define('WP_SITEURL', 'http://dev."{{ domain }}"');" >> wp-config.php
+      args:
+        chdir: /var/www/html
+
+    - name: Define HOME
+      shell: echo "define('WP_HOME', 'http://dev."{{ domain }}"');" >> wp-config.php
+      args:
+        chdir: /var/www/html

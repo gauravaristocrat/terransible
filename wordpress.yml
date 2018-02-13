@@ -1,0 +1,34 @@
+---
+- hosts: dev
+  become: yes
+  remote_user: ec2-user
+  gather_facts: yes
+  tasks:
+    - name: Install Apache
+      yum:
+        name: {{ item }}
+        state: present
+      with_items:
+        - httpd
+        - php
+        - php-mysql
+
+    - name: Download Wordpress
+      get_url:
+        url: http://wordpress.org/wordpress-latest.tar.gz
+        dest: /tmp/wordpress.tar.gz
+        force: yes
+
+    - name: Unzip Wordpress
+      unarchive:
+        src: /tmp/wordpress.tar.gz
+        dest: /var/www/html
+        group: apache
+        owner: apache
+        mode: 0755
+
+    - name: Start and enble http
+      service:
+        name: httpd
+        state: started
+        enabled: yes
