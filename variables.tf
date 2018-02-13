@@ -8,7 +8,6 @@ variable "cidrs" {
 }
 
 variable "domain_name" {}
-variable "domain_name_sufix" {}
 variable "db_instance_class" {}
 variable "db_name" {}
 variable "dbuser" {}
