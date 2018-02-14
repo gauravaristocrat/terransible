@@ -2,3 +2,4 @@
 .terraform
 terraform.tfvars
 terraform.tfstate*
+aws_hosts
