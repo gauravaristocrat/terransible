@@ -3,6 +3,7 @@ terraform {
     bucket = "terraform-state-dng"
     key = "testing/terraform.tfstate"
     region = "eu-west-1"
+    dynamodb_table = "terraform-lock"
   }
 }
 
@@ -546,4 +547,25 @@ resource "aws_route53_record" "db" {
   ttl     = "300"
   zone_id = "${aws_route53_zone.private.zone_id}"
   records = ["${aws_db_instance.wp_db.address}"]
+}
+
+# --- Outputs ---
+output "Database Name" {
+  value = "${var.db_name}"
+}
+
+output "Database Hostname" {
+  value = "${aws_db_instance.wp_db.endpoint}"
+}
+
+output "Database Username" {
+  value = "${var.dbuser}"
+}
+
+output "Database Password" {
+  value = "${var.dbpassword}"
+}
+
+output "Wordpress Address" {
+  value = "http://dev.${var.domain_name}.${var.route53_zone}"
 }
