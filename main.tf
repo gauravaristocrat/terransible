@@ -1,3 +1,12 @@
+terraform {
+  backend "s3" {
+    bucket = "terraform-state-dng"
+    key = "testing/terraform.tfstate"
+    region = "eu-west-1"
+  }
+}
+
+
 provider "aws" {
   region  = "${var.aws_region}"
   profile = "${var.aws_profile}"
