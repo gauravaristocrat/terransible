@@ -21,11 +21,22 @@
 
     - name: Unzip Wordpress
       unarchive:
+        remote_src: yes
         src: /tmp/wordpress.tar.gz
-        dest: /var/www/html
+        dest: /tmp/
         group: apache
         owner: apache
         mode: 0755
+
+    - name: Ensure Webserver can access /var/www/html
+      file:
+        path: /var/www/html
+        owner: apache
+        group: apache
+        mode: 0755
+
+    - name: Move files to www
+      shell: mv /tmp/wordpress/* /var/www/html/
 
     - name: Start and enble http
       service:
