@@ -456,7 +456,7 @@ cat <<EOF > userdata
 #!/bin/bash
 aws s3 sync s3:/${aws_s3_bucket.code.bucket} /var/www/html
 touch /var/spool/cron/root
-sudo echo '*/5 * * * * aws s3 sync s3:/${aws_s3_bucket.code.bucket} /var/www/html' >> /var/spool/cron/root
+sudo echo '*/5 * * * * aws s3 sync s3://${aws_s3_bucket.code.bucket} /var/www/html --region ${var.aws_region}' >> /var/spool/cron/root
 EOF
 EOT
   }
